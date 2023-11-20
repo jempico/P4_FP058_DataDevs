@@ -21,7 +21,7 @@ USE `onlinestore` ;
 -- Table `onlinestore`.`articulos`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `onlinestore`.`articulos` (
-  `id_articulo` INT NOT NULL,
+  `id_articulo` INT NOT NULL AUTO_INCREMENT,
   `descripcion` VARCHAR(100) NULL DEFAULT NULL,
   `pvp` FLOAT NULL DEFAULT NULL,
   `gastosenvio` FLOAT NULL DEFAULT NULL,
@@ -36,7 +36,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `onlinestore`.`clientes`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `onlinestore`.`clientes` (
-  `id_cliente` VARCHAR(10) NOT NULL,
+  `id_cliente` INT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(50) NULL DEFAULT NULL,
   `domicilio` VARCHAR(100) NULL DEFAULT NULL,
   `email` VARCHAR(100) NULL DEFAULT NULL,
@@ -53,7 +53,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `onlinestore`.`pedidos`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `onlinestore`.`pedidos` (
-  `id_pedido` INT NOT NULL,
+  `id_pedido` INT NOT NULL AUTO_INCREMENT,
   `cliente` VARCHAR(45) NULL DEFAULT NULL,
   `articulo` VARCHAR(45) NULL DEFAULT NULL,
   `cantidad` INT NULL DEFAULT NULL,
@@ -61,18 +61,11 @@ CREATE TABLE IF NOT EXISTS `onlinestore`.`pedidos` (
   `id_cliente` VARCHAR(10) NULL DEFAULT NULL,
   `id_articulo` INT NULL DEFAULT NULL,
   PRIMARY KEY (`id_pedido`),
-  INDEX `fk1_Pedidos_Articulos` (`id_articulo` ASC) VISIBLE,
   INDEX `fk2_Pedidos_Clientes` (`id_cliente` ASC) VISIBLE,
+  INDEX `fk1_Pedidos_Articulos` (`id_articulo` ASC) VISIBLE,
   CONSTRAINT `fk1_Pedidos_Articulos`
     FOREIGN KEY (`id_articulo`)
-    REFERENCES `onlinestore`.`articulos` (`id_articulo`)
-    ON DELETE RESTRICT
-    ON UPDATE RESTRICT,
-  CONSTRAINT `fk2_Pedidos_Clientes`
-    FOREIGN KEY (`id_cliente`)
-    REFERENCES `onlinestore`.`clientes` (`id_cliente`)
-    ON DELETE RESTRICT
-    ON UPDATE RESTRICT)
+    REFERENCES `onlinestore`.`articulos` (`id_articulo`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
