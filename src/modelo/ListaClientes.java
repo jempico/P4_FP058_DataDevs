@@ -13,13 +13,15 @@ public class ListaClientes extends Lista<Cliente> {
         return clientesEstandar;
     }
 
-    public void printListPremium() {
-        System.out.println("******* LISTADO DE CLIENTES (PREMIUM)  ********");
+    public ArrayList getPremiumClients() {
+        ArrayList clientesEstandar = new ArrayList<>();
         for (Cliente cliente : this.lista) {
             if (cliente.getTipoCliente() == 2) {
-                System.out.println(cliente);
+                clientesEstandar.add(cliente);
+
             }
         }
+        return clientesEstandar;
     }
 
     @Override

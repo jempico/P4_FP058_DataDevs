@@ -83,8 +83,9 @@ public class Datos {
 
 		return listaClientes.getEstandardClients();
 	}
-	public void mostrarClientesPremium() {
-		listaClientes.printListPremium();
+	public ArrayList mostrarClientesPremium() {
+
+		return listaClientes.getPremiumClients();
 	}
 
 	public void mostrarPedidosEnviados() {

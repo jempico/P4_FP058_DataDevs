@@ -53,11 +53,19 @@ public class Controlador {
 		for (Object cliente : lista) {
  				System.out.println(cliente);
 		}
+		System.out.println("**************************************************");
+
 	}
 
 	public void mostrarClientesPremium()
 	{
-		datos.mostrarClientesPremium();
+		ArrayList lista = datos.mostrarClientesPremium();
+
+		System.out.println("******* LISTADO DE CLIENTES (PREMIUM)  ********");
+		for (Object cliente : lista) {
+			System.out.println(cliente);
+		}
+		System.out.println("**************************************************");
 	}
 
 	public void addPedido(int idPedido, Integer indexCliente, Integer idArticulo, int cantidad, String fechaHoraPedido)
