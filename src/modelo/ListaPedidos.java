@@ -32,14 +32,6 @@ public class ListaPedidos extends Lista<Pedido> {
 		return super.getSize();
 	}
 
-	public void printList() {
-		System.out.println("******* PEDIDOS  ********");
-		for (Pedido pedido : this.lista) {
- 			System.out.println("Pedido con id " + pedido.getNumeroPedido() + ": " + pedido);
-		}
-		System.out.println();
-	}
-
 	@Override
 	public String toString() {
 		return "Lista de Pedidos: " + this.lista;

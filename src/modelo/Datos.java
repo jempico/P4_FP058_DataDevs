@@ -42,9 +42,9 @@ public class Datos {
 
 	}
 
-	public void mostrarPedidos()
+	public ArrayList mostrarPedidos()
 	{
-		listaPedidos.printList();
+		return listaPedidos.getArrayList();
 	}
 	public void eliminarPedido(int numeroPedido)
 	{

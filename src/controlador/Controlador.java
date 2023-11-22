@@ -76,7 +76,13 @@ public class Controlador {
 
 	public void mostrarPedidos()
 	{
-		datos.mostrarPedidos();
+		ArrayList lista = datos.mostrarPedidos();
+
+		System.out.println("******* PEDIDOS  ********");
+		for (Object pedido : lista) {
+			System.out.println(pedido);
+		}
+		System.out.println("*************************");
 	}
 
 	public void eliminarPedido(int numeroPedido)
