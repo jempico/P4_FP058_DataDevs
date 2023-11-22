@@ -1,4 +1,5 @@
 package modelo;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -72,6 +73,12 @@ public class Pedido {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 		LocalDateTime dateTime = LocalDateTime.parse(fechaToParse, formatter);
 		return dateTime;
+	}
+
+	public long calcDiferencia(LocalDateTime datePedido, LocalDateTime dateNow) {
+		Duration duration = Duration.between(datePedido, dateNow);
+		long diferencia = Math.abs(duration.toMinutes());
+		return diferencia;
 	}
 
 	@Override

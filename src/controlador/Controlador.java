@@ -3,6 +3,7 @@ package controlador;
 import modelo.*;
 
 import java.lang.reflect.Array;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Controlador {
@@ -96,7 +97,17 @@ public class Controlador {
     }
 
 	public void mostrarPedidosEnviados() {
-		datos.mostrarPedidosEnviados();
+		ArrayList<Pedido> lista = datos.mostrarPedidosEnviados();
+		System.out.println("************** PEDIDOS ENVIADOS **************");
+		for (Pedido pedido : lista) {
+			System.out.println("-----------------------------------------");
+			System.out.println("Fecha pedido: " + pedido.getFecha());
+			System.out.println("Tiempo preparacion: " + pedido.getArticulo().getPreparacion());
+			System.out.println("Fecha actual: " + LocalDateTime.now());
+			System.out.println("Minutos de diferencia: " + pedido.calcDiferencia(pedido.getFecha(), LocalDateTime.now()));
+
+		}
+		System.out.println("**************************************************");
 	}
 
 	public void mostrarPedidosEnviados(Integer indexCliente) {

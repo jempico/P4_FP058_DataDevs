@@ -1,6 +1,7 @@
 package modelo;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class ListaPedidos extends Lista<Pedido> {
 
@@ -52,39 +53,28 @@ public class ListaPedidos extends Lista<Pedido> {
 		}
 	}
 
-	public void mostrarPedidosEnviados() {
-		Boolean found = false;
-		System.out.println("************** PEDIDOS ENVIADOS **************");
+	public ArrayList mostrarPedidosEnviados() {
+		ArrayList pedidosEnviados = new ArrayList<>();
 		for (Pedido pedido : this.lista) {
-			if (pedido.getArticulo().getPreparacion() < calcDiferencia(pedido.getFecha(), LocalDateTime.now())) {
-				found = true;
-				System.out.println(this.lista.indexOf(pedido) + 1 + ": " + pedido);
-				System.out.println("-----------------------------------------");
-				System.out.println("Fecha pedido: " + pedido.getFecha());
-				System.out.println("Tiempo preparacion: " + pedido.getArticulo().getPreparacion());
-				System.out.println("Fecha actual: " + LocalDateTime.now());
-				System.out.println("Minutos de diferencia: " + calcDiferencia(pedido.getFecha(), LocalDateTime.now()));
+			if (pedido.getArticulo().getPreparacion() < pedido.calcDiferencia(pedido.getFecha(), LocalDateTime.now())) {
+				pedidosEnviados.add(pedido);
 			}
-			System.out.println("-----------------------------------------");
-		}
-		if (found == false) {
-			System.out.println(" No hay pedidos enviados");
-			System.out.println("-----------------------------------------");
-		}
+ 		}
+		 return pedidosEnviados;
 	}
 	public void mostrarPedidosEnviados(Cliente cliente) {
 		Boolean found = false;
 		System.out.println("************** PEDIDOS ENVIADOS **************");
 		for (Pedido pedido : this.lista) {
 			if (pedido.getCliente() == cliente) {
-				if (pedido.getArticulo().getPreparacion() < calcDiferencia(pedido.getFecha(), LocalDateTime.now())) {
+				if (pedido.getArticulo().getPreparacion() < pedido.calcDiferencia(pedido.getFecha(), LocalDateTime.now())) {
 					found = true;
 					System.out.println(this.lista.indexOf(pedido) + 1 + ": " + pedido);
 					System.out.println("-----------------------------------------");
 					System.out.println("Fecha pedido: " + pedido.getFecha());
 					System.out.println("Tiempo preparacion: " + pedido.getArticulo().getPreparacion());
 					System.out.println("Fecha actual: " + LocalDateTime.now());
-					System.out.println("Minutos de diferencia: " + calcDiferencia(pedido.getFecha(), LocalDateTime.now()));
+					System.out.println("Minutos de diferencia: " + pedido.calcDiferencia(pedido.getFecha(), LocalDateTime.now()));
 				}
 				System.out.println("-----------------------------------------");
 			}
@@ -99,14 +89,14 @@ public class ListaPedidos extends Lista<Pedido> {
 		Boolean found = false;
 		System.out.println("************** PEDIDOS PENDIENTES **************");
 		for (Pedido pedido : this.lista) {
-			if (pedido.getArticulo().getPreparacion() > calcDiferencia(pedido.getFecha(), LocalDateTime.now())) {
+			if (pedido.getArticulo().getPreparacion() > pedido.calcDiferencia(pedido.getFecha(), LocalDateTime.now())) {
 				found = true;
 				System.out.println(this.lista.indexOf(pedido) + 1 + ": " + pedido);
 				System.out.println("-----------------------------------------");
 				System.out.println("Fecha pedido: " + pedido.getFecha());
 				System.out.println("Tiempo preparacion: " + pedido.getArticulo().getPreparacion());
 				System.out.println("Fecha actual: " + LocalDateTime.now());
-				System.out.println("Minutos de diferencia: " + calcDiferencia(pedido.getFecha(), LocalDateTime.now()));
+				System.out.println("Minutos de diferencia: " + pedido.calcDiferencia(pedido.getFecha(), LocalDateTime.now()));
 			}
 			System.out.println("-----------------------------------------");
 		}
@@ -121,14 +111,14 @@ public class ListaPedidos extends Lista<Pedido> {
 		System.out.println("************** PEDIDOS PENDIENTES **************");
 		for (Pedido pedido : this.lista) {
 			if (pedido.getCliente() == cliente) {
-				if (pedido.getArticulo().getPreparacion() > calcDiferencia(pedido.getFecha(), LocalDateTime.now())) {
+				if (pedido.getArticulo().getPreparacion() > pedido.calcDiferencia(pedido.getFecha(), LocalDateTime.now())) {
 					found = true;
 					System.out.println(this.lista.indexOf(pedido) + 1 + ": " + pedido);
 					System.out.println("-----------------------------------------");
 					System.out.println("Fecha pedido: " + pedido.getFecha());
 					System.out.println("Tiempo preparacion: " + pedido.getArticulo().getPreparacion());
 					System.out.println("Fecha actual: " + LocalDateTime.now());
-					System.out.println("Minutos de diferencia: " + calcDiferencia(pedido.getFecha(), LocalDateTime.now()));
+					System.out.println("Minutos de diferencia: " + pedido.calcDiferencia(pedido.getFecha(), LocalDateTime.now()));
 				}
 				System.out.println("-----------------------------------------");
 			}
@@ -140,10 +130,6 @@ public class ListaPedidos extends Lista<Pedido> {
 	}
 
 
-	private long calcDiferencia(LocalDateTime datePedido, LocalDateTime dateNow) {
-		Duration duration = Duration.between(datePedido, dateNow);
-		long diferencia = Math.abs(duration.toMinutes());
-		return diferencia;
-	}
+
 
 }

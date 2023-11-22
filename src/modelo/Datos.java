@@ -88,8 +88,8 @@ public class Datos {
 		return listaClientes.getPremiumClients();
 	}
 
-	public void mostrarPedidosEnviados() {
-		listaPedidos.mostrarPedidosEnviados();
+	public ArrayList mostrarPedidosEnviados() {
+		return listaPedidos.mostrarPedidosEnviados();
 	}
 
 	public void mostrarPedidosEnviados(Integer indexCliente) {
