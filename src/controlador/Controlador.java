@@ -2,6 +2,7 @@ package controlador;
 
 import modelo.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Controlador {
@@ -46,7 +47,12 @@ public class Controlador {
 
 	public void mostrarClientesEstandar()
 	{
-		datos.mostrarClientesEstandar();
+		ArrayList lista = datos.mostrarClientesEstandar();
+
+		System.out.println("******* LISTADO DE CLIENTES (ESTÁNDAR)  ********");
+		for (Object cliente : lista) {
+ 				System.out.println(cliente);
+		}
 	}
 
 	public void mostrarClientesPremium()

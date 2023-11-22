@@ -1,13 +1,16 @@
 package modelo;
 
+import java.util.ArrayList;
 public class ListaClientes extends Lista<Cliente> {
-    public void printListEstandar() {
-        System.out.println("******* LISTADO DE CLIENTES (ESTÁNDAR)  ********");
+    public ArrayList getEstandardClients() {
+        ArrayList clientesEstandar = new ArrayList<>();
         for (Cliente cliente : this.lista) {
             if (cliente.getTipoCliente() == 1) {
-                System.out.println(cliente);
+                clientesEstandar.add(cliente);
+
             }
         }
+        return clientesEstandar;
     }
 
     public void printListPremium() {

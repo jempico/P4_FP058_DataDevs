@@ -79,9 +79,9 @@ public class Datos {
 	public ArrayList mostrarClientes() {
 		return listaClientes.getArrayList();
 	}
- 	public void mostrarClientesEstandar() {
+ 	public ArrayList mostrarClientesEstandar() {
 
-		listaClientes.printListEstandar();
+		return listaClientes.getEstandardClients();
 	}
 	public void mostrarClientesPremium() {
 		listaClientes.printListPremium();
