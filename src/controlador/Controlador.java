@@ -2,6 +2,8 @@ package controlador;
 
 import modelo.*;
 
+import java.util.ArrayList;
+
 public class Controlador {
 	public Datos datos;
 
@@ -15,9 +17,14 @@ public class Controlador {
 		datos.addArticulo(codigo, descripcion, precio, gastos, preparacion);
 	}
 
-	public void mostrarArticulos()
-	{
-		datos.mostrarArticulos();
+	public void mostrarArticulos() {
+		ArrayList lista = datos.mostrarArticulos();
+		System.out.println("******* LISTADO DE ARTÍCULOS  ********");
+		for (Object articulo : lista) {
+			System.out.println(lista.indexOf(articulo)+1 + ": " + articulo);
+		}
+		System.out.println("************************************");
+
 	}
 
 	public void addCliente(String nombre, String domicilio, String email, String nif, String tipoCliente)

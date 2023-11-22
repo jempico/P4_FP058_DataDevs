@@ -1,5 +1,7 @@
 package modelo;
 
+import java.util.ArrayList;
+
 public class Datos {
 	private ListaArticulos listaArticulos;
 	private ListaClientes listaClientes;
@@ -51,8 +53,8 @@ public class Datos {
 	}
 
 
-	public void mostrarArticulos() {
-		listaArticulos.printList();
+	public ArrayList mostrarArticulos() {
+		return listaArticulos.getArrayList();
 
 	}
 
