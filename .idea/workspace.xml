@@ -6,7 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="0dc3870c-b58e-4bb8-bef5-6e6846a4035d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modelo/Cliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modelo/Cliente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/P3_FP058_DataDevs/controlador/Controlador.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/P3_FP058_DataDevs/controlador/Controlador.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/P3_FP058_DataDevs/modelo/Cliente.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/P3_FP058_DataDevs/modelo/Cliente.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/P3_FP058_DataDevs/vista/GestionOS.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/P3_FP058_DataDevs/vista/GestionOS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controlador/Controlador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controlador/Controlador.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vista/GestionOS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/vista/GestionOS.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

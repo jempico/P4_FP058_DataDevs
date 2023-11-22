@@ -1,7 +1,12 @@
 package vista;
 
 import controlador.Controlador;
+import modelo.Articulo;
+import modelo.Cliente;
+import modelo.Pedido;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -88,10 +93,20 @@ public class GestionOS {
         System.out.println("¿Quieres filtrar por cliente? Sí/No");
         String bool = teclado.next();
         if (bool.equalsIgnoreCase("No")) {
-            controlador.mostrarPedidosEnviados();
+            ArrayList<Pedido> lista = controlador.mostrarPedidosEnviados();
+            System.out.println("************** PEDIDOS ENVIADOS **************");
+            for (Pedido pedido : lista) {
+                System.out.println("-----------------------------------------");
+                System.out.println("Fecha pedido: " + pedido.getFecha());
+                System.out.println("Tiempo preparacion: " + pedido.getArticulo().getPreparacion());
+                System.out.println("Fecha actual: " + LocalDateTime.now());
+                System.out.println("Minutos de diferencia: " + pedido.calcDiferencia(pedido.getFecha(), LocalDateTime.now()));
+
+            }
+            System.out.println("**************************************************");
         } else {
             System.out.println("***** Escoge un cliente *****");
-            controlador.mostrarClientes();
+            this.mostrarClientes();
             System.out.println("Ingresa el número del cliente: ");
             Integer indexCliente = teclado.nextInt();
             controlador.mostrarPedidosEnviados(indexCliente);
@@ -102,10 +117,20 @@ public class GestionOS {
         System.out.println("¿Quieres filtrar por cliente? Sí/No");
         String bool = teclado.next();
         if (bool.equalsIgnoreCase("No")) {
-            controlador.mostrarPedidosPendientes();
+            ArrayList<Pedido> lista = controlador.mostrarPedidosPendientes();
+            System.out.println("************** PEDIDOS PENDIENTES **************");
+            for (Pedido pedido : lista) {
+                System.out.println("-----------------------------------------");
+                System.out.println("Fecha pedido: " + pedido.getFecha());
+                System.out.println("Tiempo preparacion: " + pedido.getArticulo().getPreparacion());
+                System.out.println("Fecha actual: " + LocalDateTime.now());
+                System.out.println("Minutos de diferencia: " + pedido.calcDiferencia(pedido.getFecha(), LocalDateTime.now()));
+
+            }
+            System.out.println("**************************************************");
         } else {
             System.out.println("***** Escoge un cliente *****");
-            controlador.mostrarClientes();
+            this.mostrarClientes();
             System.out.println("Ingresa el número del cliente: ");
             Integer indexCliente = teclado.nextInt();
             controlador.mostrarPedidosPendientes(indexCliente);
@@ -119,7 +144,7 @@ public class GestionOS {
             System.out.println(" Eliminar pedido ");
             System.out.println("----------------------------------");
             System.out.println("");
-            controlador.mostrarPedidos();
+            mostrarPedidos();
             System.out.println("Ingresa el NÚMERO de ID de Pedido que quieras eliminar.");
             int idPedido = teclado.nextInt();
             controlador.eliminarPedido(idPedido);
@@ -144,7 +169,7 @@ public class GestionOS {
                 System.out.println("Escoge el cliente del pedido.");
                 System.out.println("----------------------------------");
                 System.out.println("");
-                controlador.mostrarClientes();
+                this.mostrarClientes();
                 System.out.println("");
                 System.out.println("Ingresa el número del cliente: ");
                 indexCliente = teclado.nextInt();
@@ -169,21 +194,46 @@ public class GestionOS {
     }
 
     private void mostrarPedidos() {
-        controlador.mostrarPedidos();
+        ArrayList<Pedido> lista = controlador.mostrarPedidos();
+
+        System.out.println("******* PEDIDOS  ********");
+        for (Pedido pedido : lista) {
+            System.out.println(pedido);
+        }
+        System.out.println("*************************");
     }
 
     private void mostrarClientesEstandar() {
-        controlador.mostrarClientesEstandar();
+        ArrayList<Cliente> lista = controlador.mostrarClientesEstandar();
+
+        System.out.println("******* LISTADO DE CLIENTES (ESTÁNDAR)  ********");
+        for (Cliente cliente : lista) {
+            System.out.println(cliente);
+        }
+        System.out.println("**************************************************");
+
 
     }
 
     private void mostrarClientesPremium() {
-        controlador.mostrarClientesPremium();
+        ArrayList<Cliente> lista = controlador.mostrarClientesPremium();
+
+        System.out.println("******* LISTADO DE CLIENTES (PREMIUM)  ********");
+        for (Cliente cliente : lista) {
+            System.out.println(cliente);
+        }
+        System.out.println("**************************************************");
 
     }
 
     private void mostrarClientes() {
-        controlador.mostrarClientes();
+        ArrayList<Cliente> lista = controlador.mostrarClientes();
+
+        System.out.println("******* LISTADO DE CLIENTES (ESTÁNDAR Y PREMIUM)  ********");
+        for (Cliente cliente : lista) {
+            System.out.println(lista.indexOf(cliente) + 1 + ": " + cliente);
+        }
+        System.out.println("***********************************************************");
     }
 
     private void addCliente() throws InputMismatchException {
@@ -211,7 +261,13 @@ public class GestionOS {
     }
 
     private void mostrarArticulos() {
-        controlador.mostrarArticulos();
+        ArrayList<Articulo> lista = controlador.mostrarArticulos();
+
+        System.out.println("******* LISTADO DE ARTÍCULOS  ********");
+        for (Articulo articulo : lista) {
+            System.out.println(lista.indexOf(articulo)+1 + ": " + articulo);
+        }
+        System.out.println("************************************");
     }
 
     private void addArticulo() throws InputMismatchException {
