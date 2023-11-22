@@ -96,8 +96,8 @@ public class Datos {
 		Cliente clienteFound = listaClientes.getAt(indexCliente-1);
 		listaPedidos.mostrarPedidosEnviados(clienteFound);
 	}
-	public void mostrarPedidosPendientes() {
-		listaPedidos.mostrarPedidosPendientes();
+	public ArrayList mostrarPedidosPendientes() {
+		return listaPedidos.mostrarPedidosPendientes();
 	}
 
 	public void mostrarPedidosPendientes(Integer indexCliente) {

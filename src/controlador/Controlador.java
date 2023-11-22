@@ -20,9 +20,9 @@ public class Controlador {
 	}
 
 	public void mostrarArticulos() {
-		ArrayList lista = datos.mostrarArticulos();
+		ArrayList<Articulo> lista = datos.mostrarArticulos();
 		System.out.println("******* LISTADO DE ARTÍCULOS  ********");
-		for (Object articulo : lista) {
+		for (Articulo articulo : lista) {
 			System.out.println(lista.indexOf(articulo)+1 + ": " + articulo);
 		}
 		System.out.println("************************************");
@@ -36,10 +36,10 @@ public class Controlador {
 
 	public void mostrarClientes()
 	{
-		ArrayList lista = datos.mostrarClientes();
+		ArrayList<Cliente> lista = datos.mostrarClientes();
 
 		System.out.println("******* LISTADO DE CLIENTES (ESTÁNDAR Y PREMIUM)  ********");
-		for (Object cliente : lista) {
+		for (Cliente cliente : lista) {
 			System.out.println(lista.indexOf(cliente) + 1 + ": " + cliente);
 		}
 		System.out.println("***********************************************************");
@@ -48,10 +48,10 @@ public class Controlador {
 
 	public void mostrarClientesEstandar()
 	{
-		ArrayList lista = datos.mostrarClientesEstandar();
+		ArrayList<Cliente> lista = datos.mostrarClientesEstandar();
 
 		System.out.println("******* LISTADO DE CLIENTES (ESTÁNDAR)  ********");
-		for (Object cliente : lista) {
+		for (Cliente cliente : lista) {
  				System.out.println(cliente);
 		}
 		System.out.println("**************************************************");
@@ -60,10 +60,10 @@ public class Controlador {
 
 	public void mostrarClientesPremium()
 	{
-		ArrayList lista = datos.mostrarClientesPremium();
+		ArrayList<Cliente> lista = datos.mostrarClientesPremium();
 
 		System.out.println("******* LISTADO DE CLIENTES (PREMIUM)  ********");
-		for (Object cliente : lista) {
+		for (Cliente cliente : lista) {
 			System.out.println(cliente);
 		}
 		System.out.println("**************************************************");
@@ -77,10 +77,10 @@ public class Controlador {
 
 	public void mostrarPedidos()
 	{
-		ArrayList lista = datos.mostrarPedidos();
+		ArrayList<Pedido> lista = datos.mostrarPedidos();
 
 		System.out.println("******* PEDIDOS  ********");
-		for (Object pedido : lista) {
+		for (Pedido pedido : lista) {
 			System.out.println(pedido);
 		}
 		System.out.println("*************************");
@@ -115,7 +115,17 @@ public class Controlador {
 	}
 
 	public void mostrarPedidosPendientes() {
-		datos.mostrarPedidosPendientes();
+		ArrayList<Pedido> lista = datos.mostrarPedidosPendientes();
+		System.out.println("************** PEDIDOS PENDIENTES **************");
+ 		for (Pedido pedido : lista) {
+			System.out.println("-----------------------------------------");
+			System.out.println("Fecha pedido: " + pedido.getFecha());
+			System.out.println("Tiempo preparacion: " + pedido.getArticulo().getPreparacion());
+			System.out.println("Fecha actual: " + LocalDateTime.now());
+			System.out.println("Minutos de diferencia: " + pedido.calcDiferencia(pedido.getFecha(), LocalDateTime.now()));
+
+		}
+		System.out.println("**************************************************");
 	}
 
 	public void mostrarPedidosPendientes(Integer indexCliente) {

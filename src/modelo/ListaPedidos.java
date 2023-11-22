@@ -85,26 +85,16 @@ public class ListaPedidos extends Lista<Pedido> {
 		}
 	}
 
-	public void mostrarPedidosPendientes() {
-		Boolean found = false;
-		System.out.println("************** PEDIDOS PENDIENTES **************");
+	public ArrayList mostrarPedidosPendientes() {
+		ArrayList pedidosPendientes = new ArrayList<>();
 		for (Pedido pedido : this.lista) {
 			if (pedido.getArticulo().getPreparacion() > pedido.calcDiferencia(pedido.getFecha(), LocalDateTime.now())) {
-				found = true;
-				System.out.println(this.lista.indexOf(pedido) + 1 + ": " + pedido);
-				System.out.println("-----------------------------------------");
-				System.out.println("Fecha pedido: " + pedido.getFecha());
-				System.out.println("Tiempo preparacion: " + pedido.getArticulo().getPreparacion());
-				System.out.println("Fecha actual: " + LocalDateTime.now());
-				System.out.println("Minutos de diferencia: " + pedido.calcDiferencia(pedido.getFecha(), LocalDateTime.now()));
+				pedidosPendientes.add(pedido);
 			}
-			System.out.println("-----------------------------------------");
 		}
-		if (found == false) {
-			System.out.println("No hay pedidos pendientes");
-			System.out.println("-----------------------------------------");
-		}
+		return pedidosPendientes;
 	}
+
 
 	public void mostrarPedidosPendientes(Cliente cliente) {
 		Boolean found = false;
