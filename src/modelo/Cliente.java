@@ -52,8 +52,8 @@ public abstract class Cliente {
 	public void setTipoCliente(Integer tipoCliente) {
 		this.tipoCliente = tipoCliente;
 	}
-
-	private UUID generateIdBLABLA() {
+	
+	private UUID generateNIF() {
 		UUID uuid = UUID.randomUUID();
 		return uuid;
 	}
