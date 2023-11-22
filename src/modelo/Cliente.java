@@ -53,7 +53,7 @@ public abstract class Cliente {
 		this.tipoCliente = tipoCliente;
 	}
 
-	private UUID generateId() {
+	private UUID generateIdBLABLA() {
 		UUID uuid = UUID.randomUUID();
 		return uuid;
 	}
