@@ -76,8 +76,8 @@ public class Datos {
 		System.out.println(cliente.toString());
 	}
 
-	public void mostrarClientes() {
-		listaClientes.printList();
+	public ArrayList mostrarClientes() {
+		return listaClientes.getArrayList();
 	}
  	public void mostrarClientesEstandar() {
 

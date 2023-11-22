@@ -34,7 +34,14 @@ public class Controlador {
 
 	public void mostrarClientes()
 	{
-		datos.mostrarClientes();
+		ArrayList lista = datos.mostrarClientes();
+
+		System.out.println("******* LISTADO DE CLIENTES (ESTÁNDAR Y PREMIUM)  ********");
+		for (Object cliente : lista) {
+			System.out.println(lista.indexOf(cliente) + 1 + ": " + cliente);
+		}
+		System.out.println("***********************************************************");
+
 	}
 
 	public void mostrarClientesEstandar()
