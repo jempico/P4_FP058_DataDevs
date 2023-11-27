@@ -3,7 +3,7 @@ package modelo;
 public class ClienteEstandard extends Cliente{
 
 	public ClienteEstandard(String nombre, String domicilio, String email, String nif) {
-		super(nombre, domicilio, email, nif, 1);
+		super(nombre, domicilio, email, nif, "estandar");
 
 	}
 

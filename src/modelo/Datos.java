@@ -1,11 +1,17 @@
 package modelo;
 
+import dao.DaoException;
+import mysql.MysqlArticuloDAO;
+
 import java.util.ArrayList;
 
 public class Datos {
 	private ListaArticulos listaArticulos;
 	private ListaClientes listaClientes;
 	private ListaPedidos listaPedidos;
+
+	MysqlArticuloDAO mysqlArticuloDAO = new MysqlArticuloDAO();
+
 
 	public Datos() {
 		listaArticulos = new ListaArticulos();
@@ -16,6 +22,12 @@ public class Datos {
 	public void addArticulo(Integer codigo, String descripcion, float precio, float gastos, Integer preparacion) {
 		Articulo articulo = new Articulo(codigo, descripcion, precio, gastos, preparacion);
 		listaArticulos.add(articulo);
+		try {
+			mysqlArticuloDAO.insertar(articulo);
+		} catch (DaoException e) {
+			throw new RuntimeException(e);
+		}
+
 		System.out.println("***Artículo correctamente añadido!!***");
 		System.out.println(articulo.toString());
 	}
@@ -55,6 +67,12 @@ public class Datos {
 
 	public ArrayList mostrarArticulos() {
 		return listaArticulos.getArrayList();
+		// PARA NOE:
+		// try {
+		//			return mysqlArticuloDAO.obtenerTodos();
+		//		} catch (DaoException e) {
+		//			throw new RuntimeException(e);
+		//		}
 
 	}
 
@@ -72,20 +90,47 @@ public class Datos {
 		}
 
 		listaClientes.add(cliente);
+		// PARA AINHOA:
+		//try {
+		//			mysqlClienteDAO.insertar(cliente);
+		//		} catch (DaoException e) {
+		//			throw new RuntimeException(e);
+		//		}
 		System.out.println("***Cliente correctamente añadido!!***");
 		System.out.println(cliente.toString());
 	}
 
 	public ArrayList mostrarClientes() {
 		return listaClientes.getArrayList();
+		// PARA AINHOA:
+		//try {
+		//			return mysqlClienteDAO.obtenerTodos();
+		//		} catch (DaoException e) {
+		//			throw new RuntimeException(e);
+		//		}
+
 	}
  	public ArrayList mostrarClientesEstandar() {
 
 		return listaClientes.getEstandardClients();
+		// PARA ELI:
+		//try {
+		//			return mysqlClienteDAO.obtenerClientesEstandar(); //<<-- este método tendrá que crearse dentro de mysqlClienteDAO filtrando por la columna tipoCliente = "estandar"
+		//		} catch (DaoException e) {
+		//			throw new RuntimeException(e);
+		//		}
+
 	}
 	public ArrayList mostrarClientesPremium() {
 
 		return listaClientes.getPremiumClients();
+
+		// PARA ELI:
+		//try {
+		//			return mysqlClienteDAO.obtenerClientesPremium(); //<<-- este método tendrá que crearse dentro de mysqlClienteDAO filtrando por la columna tipoCliente = "premium"
+		//		} catch (DaoException e) {
+		//			throw new RuntimeException(e);
+		//		}
 	}
 
 	public ArrayList mostrarPedidosEnviados() {

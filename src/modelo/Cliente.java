@@ -6,13 +6,13 @@ public abstract class Cliente {
 	private String domicilio;
 	private String email;
 	private String nif;
+	private String tipoCliente;
 
-	private Integer tipoCliente;
 
 	public abstract String tipoCliente();
 	public abstract float calcAnual();
 	public abstract float descuentoEnv();
-	public Cliente(String nombre, String domicilio, String email, String nif, Integer tipoCliente) {
+	public Cliente(String nombre, String domicilio, String email, String nif, String tipoCliente) {
 		super();
 		this.nombre = nombre;
 		this.domicilio = domicilio;
@@ -46,13 +46,9 @@ public abstract class Cliente {
 		this.nif = nif;
 	}
 
-	public Integer getTipoCliente() {
+	public String getTipoCliente() {
 		return tipoCliente;
 	}
-	public void setTipoCliente(Integer tipoCliente) {
-		this.tipoCliente = tipoCliente;
-	}
-	
 	private UUID generateNIF() {
 		UUID uuid = UUID.randomUUID();
 		return uuid;

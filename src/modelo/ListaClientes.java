@@ -5,7 +5,7 @@ public class ListaClientes extends Lista<Cliente> {
     public ArrayList getEstandardClients() {
         ArrayList clientesEstandar = new ArrayList<>();
         for (Cliente cliente : this.lista) {
-            if (cliente.getTipoCliente() == 1) {
+            if (cliente.getTipoCliente() == "estandar") {
                 clientesEstandar.add(cliente);
 
             }
@@ -16,7 +16,7 @@ public class ListaClientes extends Lista<Cliente> {
     public ArrayList getPremiumClients() {
         ArrayList clientesEstandar = new ArrayList<>();
         for (Cliente cliente : this.lista) {
-            if (cliente.getTipoCliente() == 2) {
+            if (cliente.getTipoCliente() == "premium") {
                 clientesEstandar.add(cliente);
 
             }
