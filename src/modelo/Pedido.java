@@ -18,8 +18,8 @@ public class Pedido {
 	public float precioEnvio() {
 		Float pvp = articulo.getPvp();
 		Float costeEnvio = articulo.getGastos();
-		Integer tipoCliente = cliente.getTipoCliente();
-		if (tipoCliente == 2) {
+		String tipoCliente = cliente.getTipoCliente();
+		if (tipoCliente == "premium") {
 			return (pvp * cantidad) + (costeEnvio - costeEnvio * (cliente.descuentoEnv()/100));
 		}
 		return (pvp * cantidad) + costeEnvio;
