@@ -5,21 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0dc3870c-b58e-4bb8-bef5-6e6846a4035d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/dao/ArticuloDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dao/DaoException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dao/DaoFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/mysql/MysqlArticuloDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/mysql/MysqlPedidoDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/P3_FP058_DataDevs/controlador/OnlineStore.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/P3_FP058_DataDevs/controlador/OnlineStore.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/P3_FP058_DataDevs/modelo/Cliente.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/P3_FP058_DataDevs/modelo/Cliente.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/P3_FP058_DataDevs/modelo/Datos.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/P3_FP058_DataDevs/modelo/Datos.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controlador/OnlineStore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controlador/OnlineStore.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controlador/main/ConexionBD.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modelo/Cliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modelo/Cliente.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modelo/ClienteEstandard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modelo/ClienteEstandard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modelo/ClientePremium.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modelo/ClientePremium.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/modelo/Datos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modelo/Datos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modelo/ListaClientes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modelo/ListaClientes.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/modelo/Pedido.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modelo/Pedido.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

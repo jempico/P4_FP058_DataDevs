@@ -1,6 +1,8 @@
 package modelo;
+import java.sql.Date;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 
@@ -67,6 +69,13 @@ public class Pedido {
 
 	public LocalDateTime getFecha() {
 		return fecha;
+	}
+	public Date getFechaSqlDate() {
+		// Step 1: Convert LocalDateTime to java.util.Date
+		java.util.Date utilDate = java.util.Date.from(fecha.atZone(ZoneId.systemDefault()).toInstant());
+		// Step 2: Convert java.util.Date to java.sql.Date
+		Date sqlDate = new Date(utilDate.getTime());
+		return sqlDate;
 	}
 
 	private LocalDateTime parseFecha(String fechaToParse) {
