@@ -6,6 +6,8 @@ import modelo.Cliente;
 import modelo.Pedido;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -20,7 +22,7 @@ public class GestionOS {
         controlador = new Controlador();
         boolean salir = false;
         String opcion;
-        cargarDatosEjemplo();
+        //cargarDatosEjemplo();
 
         do {
 
@@ -82,17 +84,20 @@ public class GestionOS {
     }
 
     public void cargarDatosEjemplo() {
-        controlador.addArticulo(111, "mesa", 40.5F, 10.5F, 60);
-        controlador.addArticulo(222, "silla", 25.5F, 5.5F, 250);
-        controlador.addArticulo(333, "armario", 115.5F, 25.5F, 600);
+        controlador.addArticulo(111, "mesa", 40.5F, 10.5F, 5000);
+        controlador.addArticulo(222, "silla", 25.5F, 5.5F, 5000);
+        controlador.addArticulo(333, "armario", 115.5F, 25.5F, 5000);
         controlador.addCliente("Ana", "C/Estevez 1", "ana@gmail.com", "44488765J", "Estándar");
         controlador.addCliente("Sofía", "Plaça Catalunya 2", "sofia@gmail.com", "78653325N", "Estándar");
         controlador.addCliente("Miguel", "Passeig de Gracia 2", "miguel@gmail.com", "6667895T", "Premium");
         controlador.addCliente("Carlos", "C/Verdi 7", "carlos@gmail.com", "17894565R", "Premium");
-        controlador.addPedido(56401,1, 1, 2, "2023-11-01 21:15");
-        controlador.addPedido(97415,3, 2, 4, "2023-10-28 11:30");
+        controlador.addPedido(56401,"78653325N", 111, 2, "2023-11-01 21:15");
+        controlador.addPedido(97415,"6667895T", 222, 4, "2023-10-28 11:30");
     }
 
+    public String getCurrentDateTime() {
+        return "2023-11-29T00:00:00";
+    }
     private void mostrarPedidosEnviados() {
         System.out.println("¿Quieres filtrar por cliente? Sí/No");
         String bool = teclado.next();
@@ -102,7 +107,7 @@ public class GestionOS {
             for (Pedido pedido : lista) {
                 System.out.println("-----------------------------------------");
                 System.out.println("Fecha pedido: " + pedido.getFecha());
-                System.out.println("Tiempo preparacion: " + pedido.getArticulo().getPreparacion());
+                System.out.println("Tiempo preparacion (en minutos): " + pedido.getArticulo().getPreparacion());
                 System.out.println("Fecha actual: " + LocalDateTime.now());
                 System.out.println("Minutos de diferencia: " + pedido.calcDiferencia(pedido.getFecha(), LocalDateTime.now()));
 
@@ -125,6 +130,11 @@ public class GestionOS {
             System.out.println("************** PEDIDOS PENDIENTES **************");
             for (Pedido pedido : lista) {
                 System.out.println(pedido.toString());
+                System.out.println("-----------------------------------------");
+                System.out.println("Fecha pedido: " + pedido.getFecha());
+                System.out.println("Tiempo preparacion (en minutos): " + pedido.getArticulo().getPreparacion());
+                System.out.println("Fecha actual: " + LocalDateTime.now());
+                System.out.println("Minutos de diferencia: " + pedido.calcDiferencia(pedido.getFecha(), LocalDateTime.now()));
 
             }
             System.out.println("**************************************************");
@@ -171,21 +181,21 @@ public class GestionOS {
                 System.out.println("");
                 this.mostrarClientes();
                 System.out.println("");
-                System.out.println("Ingresa el número del cliente: ");
-                indexCliente = teclado.nextInt();
+                System.out.println("Ingresa el nif del cliente: ");
+                String nifCliente = teclado.next();
 
                 System.out.println("Escoge el articulo del pedido.");
                 System.out.println("----------------------------------");
                 controlador.mostrarArticulos();
                 System.out.println("----------------------------------");
-                System.out.println("Ingresa el número del articulo: ");
+                System.out.println("Ingresa el número de ID del articulo: ");
                 idArticulo = teclado.nextInt();
                 System.out.println("Ingresa el número de unidades del artículo: ");
                 unidades = teclado.nextInt();
                 System.out.println(numPedido);
                 System.out.println(idArticulo);
                 System.out.println(unidades);
-                controlador.addPedido(numPedido, indexCliente, idArticulo, unidades, "2023-11-01 20:30");
+                controlador.addPedido(numPedido, nifCliente, idArticulo, unidades,  "2023-11-29 00:00");
             }
         } catch (InputMismatchException e) {
             System.out.println("Ha habido algún error en el tipo de dato introducido. Vuelve a intentarlo");

@@ -68,10 +68,9 @@ public class MysqlPedidoDAO implements PedidoDAO {
     }
 
     private String parseSqlDateToString(Date date) throws SQLException  {
-        Date sqlDate = new Date(System.currentTimeMillis());
         // Convert java.sql.Date to LocalDateTime
-        LocalDateTime localDateTime = sqlDate.toLocalDate().atStartOfDay();
-        // Format pattern "yyyy-MM-dd hh:mm"
+        LocalDateTime localDateTime = date.toLocalDate().atStartOfDay();
+         // Format pattern "yyyy-MM-dd hh:mm"
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         // Format LocalDateTime as a string
         String formattedDate = localDateTime.format(formatter);
@@ -89,9 +88,6 @@ public class MysqlPedidoDAO implements PedidoDAO {
             Cliente cliente = mysqlClienteDAO.obtener(id_cliente);
             Articulo articulo = mysqlArticuloDAO.obtener(id_articulo);
             String fechaString = parseSqlDateToString(fecha);
-
-            System.out.println("fecha" +  fecha);
-            System.out.println("fechaString" +  fechaString);
             Pedido pedido = new Pedido(id_pedido, cliente, articulo, cantidad, fechaString);
             return pedido;
         } catch (DaoException e) {
@@ -169,4 +165,25 @@ public class MysqlPedidoDAO implements PedidoDAO {
         return pedidos;
     }
 
+    @Override
+    public void eliminar(Integer id) throws DaoException {
+        PreparedStatement stat = null;
+        try {
+            stat = conn.prepareStatement(DELETE);
+            stat.setInt(1, id);
+            if (stat.executeUpdate() == 0) {
+                throw new DaoException("Error de SQL");
+            }
+        } catch (SQLException ex) {
+            throw new DaoException("Error de SQL", ex);
+        } finally {
+            if (stat != null) {
+                try {
+                    stat.close();
+                } catch (SQLException ex) {
+                    throw new DaoException("Error de SQL", ex);
+                }
+            }
+        }
+    }
 }

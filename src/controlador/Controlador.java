@@ -32,8 +32,8 @@ public class Controlador {
 
 	public ArrayList mostrarClientesPremium() { return datos.mostrarClientesPremium(); }
 
-	public void addPedido(int idPedido, Integer indexCliente, Integer idArticulo, int cantidad, String fechaHoraPedido)  {
-		datos.addPedido(idPedido, indexCliente, idArticulo, cantidad, fechaHoraPedido);
+	public void addPedido(int idPedido, String nifCliente, Integer idArticulo, int cantidad, String fechaHoraPedido)  {
+		datos.addPedido(idPedido, nifCliente, idArticulo, cantidad, fechaHoraPedido);
 	}
 
 	public ArrayList mostrarPedidos() { return datos.mostrarPedidos(); }

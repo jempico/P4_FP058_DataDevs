@@ -5,6 +5,7 @@ import dao.DaoException;
 import modelo.Cliente;
 import modelo.ClienteEstandard;
 import modelo.ClientePremium;
+import modelo.Pedido;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -15,6 +16,8 @@ public class MysqlClienteDAO implements ClienteDAO {
 
 
     final String INSERT = "INSERT INTO clientes(nif, nombre, domicilio, email, tipoCliente, calcAnual, descuentoEnv) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    final String DELETE = "DELETE FROM clientes WHERE nif = ?";
+
     final String GETALL = "SELECT nif, nombre, domicilio, email, tipoCliente, calcAnual, descuentoEnv FROM clientes";
     final String GETONE = "SELECT nif, nombre, domicilio, email, tipoCliente, calcAnual, descuentoEnv FROM clientes WHERE nif = ?";
 
@@ -147,6 +150,28 @@ public class MysqlClienteDAO implements ClienteDAO {
             }
         }
         return clientes;
+    }
+
+    @Override
+    public void eliminar(String id) throws DaoException {
+        PreparedStatement stat = null;
+        try {
+            stat = conn.prepareStatement(DELETE);
+            stat.setString(1, id);
+            if (stat.executeUpdate() == 0) {
+                throw new DaoException("Error de SQL");
+            }
+        } catch (SQLException ex) {
+            throw new DaoException("Error de SQL", ex);
+        } finally {
+            if (stat != null) {
+                try {
+                    stat.close();
+                } catch (SQLException ex) {
+                    throw new DaoException("Error de SQL", ex);
+                }
+            }
+        }
     }
 
 }

@@ -13,6 +13,7 @@ import java.util.List;
 public class MysqlArticuloDAO implements ArticuloDAO {
     private Connection conn;
     final String INSERT = "INSERT INTO articulos(id_articulo, descripcion, pvp, gastosenvio, preparacion) VALUES (?, ?, ?, ?, ?)";
+    final String DELETE = "DELETE FROM articulos WHERE id_articulo=?";
     final String GETALL = "SELECT id_articulo, descripcion, pvp, gastosenvio, preparacion FROM articulos";
     final String GETONE = "SELECT id_articulo, descripcion, pvp, gastosenvio, preparacion FROM articulos WHERE id_articulo = ?";
 
@@ -132,5 +133,26 @@ public class MysqlArticuloDAO implements ArticuloDAO {
         return articulos;
     }
 
+    @Override
+    public void eliminar(Integer id) throws DaoException {
+        PreparedStatement stat = null;
+        try {
+            stat = conn.prepareStatement(DELETE);
+            stat.setInt(1, id);
+            if (stat.executeUpdate() == 0) {
+                throw new DaoException("Error de SQL");
+            }
+        } catch (SQLException ex) {
+            throw new DaoException("Error de SQL", ex);
+        } finally {
+            if (stat != null) {
+                try {
+                    stat.close();
+                } catch (SQLException ex) {
+                    throw new DaoException("Error de SQL", ex);
+                }
+            }
+        }
+    }
 
 }

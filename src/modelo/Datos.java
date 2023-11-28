@@ -5,6 +5,8 @@ import mysql.MysqlArticuloDAO;
 import mysql.MysqlClienteDAO;
 import mysql.MysqlPedidoDAO;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,30 +39,16 @@ public class Datos {
 	}
 
 
-	public void addPedido(Integer idPedido, Integer indexCliente, Integer indexArticulo, Integer cantidad, String fechaHoraPedido) {
-		Articulo articulo = listaArticulos.getAt(indexArticulo -1 );
-		Cliente cliente = listaClientes.getAt(indexCliente -1 );
-		Pedido pedido = new Pedido(idPedido, cliente, articulo, cantidad, fechaHoraPedido);
-		listaPedidos.add(pedido);
-		 try {
+	public void addPedido(Integer idPedido, String nif, Integer idArticulo, Integer cantidad, String fechaHoraPedido) {
+		try {
+			 Articulo articulo = mysqlArticuloDAO.obtener(idArticulo);
+			 Cliente cliente = mysqlClienteDAO.obtener(nif);
+			 Pedido pedido = new Pedido(idPedido, cliente, articulo, cantidad, fechaHoraPedido);
 			 mysqlPedidoDAO.insertar(pedido);
 		} catch (DaoException e) {
 			throw new RuntimeException(e);
 		}
 		System.out.println("***Pedido correctamente añadido!!***");
-		System.out.println(pedido.toString());
-		System.out.println("-----------------------------------");
-		System.out.println("PRECIO FINAL DEL PEDIDO: " + pedido.precioEnvio() + "€");
-		System.out.println("-----------------------------------");
-		System.out.println("Desglose de precio:");
-		System.out.println("Precio del Articulo:" + articulo.getPvp());
-		System.out.println("Unidades artículo:" + cantidad);
-		System.out.println("Gastos de envío del Articulo:" + articulo.getGastos());
-		System.out.println("Descuento aplicado:" + cliente.descuentoEnv() + "%");
-		System.out.println("-----------------------------------");
-
-
-
 	}
 
 	public ArrayList<Pedido> mostrarPedidos(){
@@ -74,8 +62,11 @@ public class Datos {
 	}
 	public void eliminarPedido(int numeroPedido)
 	{
-		listaPedidos.eliminarPedido(numeroPedido);
-		mostrarPedidos();
+		try {
+			mysqlPedidoDAO.eliminar(numeroPedido);
+		} catch (DaoException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 
@@ -147,16 +138,45 @@ public class Datos {
 		//		}
 	}
 
-	public ArrayList mostrarPedidosEnviados() {
-		return listaPedidos.mostrarPedidosEnviados();
+	public ArrayList<Pedido> mostrarPedidosEnviados() {
+		ArrayList<Pedido> pedidosEnviados = new ArrayList<>();
+		ArrayList<Pedido> pedidos = new ArrayList<>();
+
+		try {
+			pedidos = mysqlPedidoDAO.obtenerTodos();
+			for (Pedido pedido : pedidos) {
+				if (pedido.getArticulo().getPreparacion() < pedido.calcDiferencia(pedido.getFecha(), LocalDateTime.now())) {
+					pedidosEnviados.add(pedido);
+				}
+			}
+		} catch (DaoException e) {
+			throw new RuntimeException(e);
+		}
+
+		return pedidosEnviados;
 	}
 
 	public void mostrarPedidosEnviados(Integer indexCliente) {
 		Cliente clienteFound = listaClientes.getAt(indexCliente-1);
 		listaPedidos.mostrarPedidosEnviados(clienteFound);
 	}
-	public ArrayList mostrarPedidosPendientes() {
-		return listaPedidos.mostrarPedidosPendientes();
+	public ArrayList<Pedido> mostrarPedidosPendientes() {
+
+		ArrayList<Pedido> pedidosPendientes = new ArrayList<>();
+		ArrayList<Pedido> pedidos = new ArrayList<>();
+
+		try {
+			pedidos = mysqlPedidoDAO.obtenerTodos();
+			for (Pedido pedido : pedidos) {
+				if (pedido.getArticulo().getPreparacion() > pedido.calcDiferencia(pedido.getFecha(), LocalDateTime.now())) {
+					pedidosPendientes.add(pedido);
+				}
+			}
+		} catch (DaoException e) {
+			throw new RuntimeException(e);
+		}
+
+		return pedidosPendientes;
 	}
 
 	public void mostrarPedidosPendientes(Integer indexCliente) {
