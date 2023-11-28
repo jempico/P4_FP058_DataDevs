@@ -1,24 +1,26 @@
 package mysql;
 
-import dao.ArticuloDAO;
+import dao.ClienteDAO;
 import dao.DaoException;
-import modelo.Articulo;
 import modelo.Cliente;
-import modelo.Pedido;
+import modelo.ClienteEstandard;
+import modelo.ClientePremium;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MysqlArticuloDAO implements ArticuloDAO {
+public class MysqlClienteDAO implements ClienteDAO {
     private Connection conn;
-    final String INSERT = "INSERT INTO articulos(id_articulo, descripcion, pvp, gastosenvio, preparacion) VALUES (?, ?, ?, ?, ?)";
-    final String GETALL = "SELECT id_articulo, descripcion, pvp, gastosenvio, preparacion FROM articulos";
-    final String GETONE = "SELECT id_articulo, descripcion, pvp, gastosenvio, preparacion FROM articulos WHERE id_articulo = ?";
+
+
+    final String INSERT = "INSERT INTO clientes(nif, nombre, domicilio, email, tipoCliente, calcAnual, descuentoEnv) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    final String GETALL = "SELECT nif, nombre, domicilio, email, tipoCliente, calcAnual, descuentoEnv FROM clientes";
+    final String GETONE = "SELECT nif, nombre, domicilio, email, tipoCliente, calcAnual, descuentoEnv FROM clientes WHERE nif = ?";
 
     String jdbc = "jdbc:mysql://localhost:3306/onlinestore";
 
-    public MysqlArticuloDAO() {
+    public MysqlClienteDAO() {
         try {
             conn = DriverManager.getConnection(jdbc,"root", "root");
             System.out.println("BBDD Correctamente conectada");
@@ -26,20 +28,24 @@ public class MysqlArticuloDAO implements ArticuloDAO {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+
+
     }
 
     @Override
-    public void insertar(Articulo a) throws DaoException {
+    public void insertar(Cliente c) throws DaoException {
         PreparedStatement stat = null;
         try {
             stat = conn.prepareStatement(INSERT);
-            stat.setInt(1, a.getId());
-            stat.setString(2, a.getDescripcion());
-            stat.setFloat(3, a.getPvp());
-            stat.setFloat(4, a.getGastos());
-            stat.setInt(5, a.getPreparacion());
+            stat.setString(1, c.getNif());
+            stat.setString(2, c.getNombre());
+            stat.setString(3,  c.getDomicilio());
+            stat.setString(4, c.getEmail());
+            stat.setString(5, c.getTipoCliente());
+            stat.setFloat(6, c.calcAnual());
+            stat.setFloat(7, c.descuentoEnv());
             stat.executeUpdate();
-         }catch(SQLException ex) {
+        }catch(SQLException ex) {
             throw new DaoException("Error en SQL", ex);
         }
         finally {
@@ -53,27 +59,38 @@ public class MysqlArticuloDAO implements ArticuloDAO {
         }
     }
 
-    private Articulo convertir(ResultSet rs) throws SQLException {
-        Integer id_articulo = rs.getInt("id_articulo");
-        String descripcion = rs.getString("descripcion");
-        Float pvp = rs.getFloat("pvp");
-        Float gastosenvio = rs.getFloat("gastosenvio");
-        Integer preparacion = rs.getInt("preparacion");
-        Articulo articulo = new Articulo(id_articulo, descripcion, pvp, gastosenvio, preparacion);
-        return articulo;
+    private Cliente convertir(ResultSet rs) throws SQLException {
+
+        String nif = rs.getString("nif");
+        String nombre = rs.getString("nombre");
+        String domicilio = rs.getString("domicilio");
+        String email = rs.getString("email");
+        String tipoCliente = rs.getString("tipoCliente");
+        Float calcAnual = rs.getFloat("calcAnual");
+        Float descuentoEnv = rs.getFloat("descuentoEnv");
+        Cliente cliente;
+        if (tipoCliente.equalsIgnoreCase("estandar")) {
+            cliente = new ClienteEstandard(nombre, domicilio, email, nif);
+        } else if (tipoCliente.equalsIgnoreCase("premium")) {
+            cliente = new ClientePremium(nombre, domicilio, email, nif);
+        } else {
+            cliente = new ClienteEstandard(nombre, domicilio, email, nif);
+        }
+        return cliente;
+
     }
 
     @Override
-    public Articulo obtener(Integer id) throws DaoException {
+    public Cliente obtener(String id) throws DaoException {
         PreparedStatement stat = null;
         ResultSet rs = null;
-        Articulo a = null;
+        Cliente c = null;
         try {
             stat = conn.prepareStatement(GETONE);
-            stat.setInt(1, id);
+            stat.setString(1, id);
             rs = stat.executeQuery();
             if (rs.next()) {
-                a = convertir(rs);
+                c = convertir(rs);
             } else {
                 throw new DaoException("No se ha encontrado ese registro");
             }
@@ -96,19 +113,19 @@ public class MysqlArticuloDAO implements ArticuloDAO {
                 }
             }
         }
-        return a;
+        return c;
     }
 
     @Override
-    public ArrayList<Articulo> obtenerTodos() throws DaoException {
+    public ArrayList<Cliente> obtenerTodos() throws DaoException {
         PreparedStatement stat = null;
         ResultSet rs = null;
-        ArrayList<Articulo> articulos = new ArrayList<>();
+        ArrayList<Cliente> clientes = new ArrayList<>();
         try {
             stat = conn.prepareStatement(GETALL);
             rs = stat.executeQuery();
             while (rs.next()) {
-                articulos.add(convertir(rs));
+                clientes.add(convertir(rs));
             }
         } catch (SQLException ex) {
             throw new DaoException("Error en SQL", ex);
@@ -129,8 +146,7 @@ public class MysqlArticuloDAO implements ArticuloDAO {
                 }
             }
         }
-        return articulos;
+        return clientes;
     }
-
 
 }

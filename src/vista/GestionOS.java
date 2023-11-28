@@ -34,6 +34,7 @@ public class GestionOS {
             System.out.println("8. Eliminar Pedido");
             System.out.println("9. Mostar pedidos pendientes");
             System.out.println("10. Mostrar pedidos enviados");
+            System.out.println("11. Mostrar todos los pedidos ");
             System.out.println("0. Salir");
             opcion = pedirOpcion();
             switch (opcion) {
@@ -67,6 +68,9 @@ public class GestionOS {
                     break;
                 case "10":
                     mostrarPedidosEnviados();
+                    break;
+                case "11":
+                    mostrarPedidos();
                     break;
                 case "0":
                     salir = true;
@@ -120,11 +124,7 @@ public class GestionOS {
             ArrayList<Pedido> lista = controlador.mostrarPedidosPendientes();
             System.out.println("************** PEDIDOS PENDIENTES **************");
             for (Pedido pedido : lista) {
-                System.out.println("-----------------------------------------");
-                System.out.println("Fecha pedido: " + pedido.getFecha());
-                System.out.println("Tiempo preparacion: " + pedido.getArticulo().getPreparacion());
-                System.out.println("Fecha actual: " + LocalDateTime.now());
-                System.out.println("Minutos de diferencia: " + pedido.calcDiferencia(pedido.getFecha(), LocalDateTime.now()));
+                System.out.println(pedido.toString());
 
             }
             System.out.println("**************************************************");
@@ -198,7 +198,7 @@ public class GestionOS {
 
         System.out.println("******* PEDIDOS  ********");
         for (Pedido pedido : lista) {
-            System.out.println(pedido);
+            System.out.println(pedido.toString());
         }
         System.out.println("*************************");
     }

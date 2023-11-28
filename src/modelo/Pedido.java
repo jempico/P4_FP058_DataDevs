@@ -29,11 +29,12 @@ public class Pedido {
 
 	public Pedido(int idPedido, Cliente cliente, Articulo articulo, int cantidad, String fechaHoraPedido) {
 		this.idPedido = idPedido;
-		this.cliente = cliente;
-		this.articulo = articulo;
-		this.cantidad = cantidad;
+ 		this.cantidad = cantidad;
+		 this.cliente = cliente;
+		 this.articulo = articulo;
 		this.fecha = parseFecha(fechaHoraPedido);
 	}
+
 
 	public int getNumeroPedido() {
 		return idPedido;
@@ -45,10 +46,6 @@ public class Pedido {
 
 	public Cliente getCliente() {
 		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
 	}
 
 	public Articulo getArticulo() {

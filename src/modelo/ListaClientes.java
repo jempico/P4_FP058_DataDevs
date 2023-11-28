@@ -24,6 +24,16 @@ public class ListaClientes extends Lista<Cliente> {
         return clientesEstandar;
     }
 
+    public Cliente findClienteByNif(String nif) {
+        Cliente clientefound = null;
+        for (Cliente cliente : this.lista) {
+            if (cliente.getNif() == nif) {
+                clientefound = cliente;
+            }
+        }
+        return clientefound;
+    }
+
     @Override
     public String toString() {
         return "Listado de Clientes " + this.lista;

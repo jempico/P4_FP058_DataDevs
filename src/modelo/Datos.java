@@ -2,9 +2,11 @@ package modelo;
 
 import dao.DaoException;
 import mysql.MysqlArticuloDAO;
+import mysql.MysqlClienteDAO;
 import mysql.MysqlPedidoDAO;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Datos {
 	private ListaArticulos listaArticulos;
@@ -13,7 +15,7 @@ public class Datos {
 
 	MysqlArticuloDAO mysqlArticuloDAO = new MysqlArticuloDAO();
 	MysqlPedidoDAO mysqlPedidoDAO = new MysqlPedidoDAO();
-
+	MysqlClienteDAO mysqlClienteDAO = new MysqlClienteDAO();
 
 	public Datos() {
 		listaArticulos = new ListaArticulos();
@@ -61,9 +63,14 @@ public class Datos {
 
 	}
 
-	public ArrayList mostrarPedidos()
-	{
-		return listaPedidos.getArrayList();
+	public ArrayList<Pedido> mostrarPedidos(){
+		ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
+		 try {
+			 pedidos = mysqlPedidoDAO.obtenerTodos();
+			} catch (DaoException e) {
+				throw new RuntimeException(e);
+			}
+	 return pedidos;
 	}
 	public void eliminarPedido(int numeroPedido)
 	{
@@ -87,9 +94,9 @@ public class Datos {
 
 		Cliente cliente;
 
-		if (tipoCliente.equalsIgnoreCase("Estándar")) {
+		if (tipoCliente.equalsIgnoreCase("estandar")) {
 			cliente = new ClienteEstandard(nombre, domicilio, email, nif);
-		} else if (tipoCliente.equalsIgnoreCase("Premium")) {
+		} else if (tipoCliente.equalsIgnoreCase("premium")) {
 			cliente = new ClientePremium(nombre, domicilio, email, nif);
 		} else {
 			System.out.println("Tipo de cliente no válido. Se creará como Estándar por defecto.");
@@ -97,24 +104,24 @@ public class Datos {
 		}
 
 		listaClientes.add(cliente);
-		// PARA AINHOA:
-		//try {
-		//			mysqlClienteDAO.insertar(cliente);
-		//		} catch (DaoException e) {
-		//			throw new RuntimeException(e);
-		//		}
+		try {
+			mysqlClienteDAO.insertar(cliente);
+			} catch (DaoException e) {
+				throw new RuntimeException(e);
+			}
 		System.out.println("***Cliente correctamente añadido!!***");
 		System.out.println(cliente.toString());
 	}
 
 	public ArrayList mostrarClientes() {
-		return listaClientes.getArrayList();
-		// PARA AINHOA:
-		//try {
-		//			return mysqlClienteDAO.obtenerTodos();
-		//		} catch (DaoException e) {
-		//			throw new RuntimeException(e);
-		//		}
+
+		ArrayList<Cliente> clientes = new ArrayList<>();
+		try {
+			clientes = mysqlClienteDAO.obtenerTodos();
+				} catch (DaoException e) {
+					throw new RuntimeException(e);
+			}
+		return clientes;
 
 	}
  	public ArrayList mostrarClientesEstandar() {
@@ -156,4 +163,13 @@ public class Datos {
 		Cliente clienteFound = listaClientes.getAt(indexCliente-1);
 		listaPedidos.mostrarPedidosPendientes(clienteFound);
 	}
+
+	public Cliente findClienteByNif(String nif) {
+		return listaClientes.findClienteByNif(nif);
+	}
+
+	public Articulo findArticuloById(Integer id) {
+		return listaArticulos.findById(id);
+	}
+
 }
