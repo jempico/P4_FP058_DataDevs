@@ -2,6 +2,7 @@ package modelo;
 
 import dao.DaoException;
 import mysql.MysqlArticuloDAO;
+import mysql.MysqlPedidoDAO;
 
 import java.util.ArrayList;
 
@@ -11,6 +12,7 @@ public class Datos {
 	private ListaPedidos listaPedidos;
 
 	MysqlArticuloDAO mysqlArticuloDAO = new MysqlArticuloDAO();
+	MysqlPedidoDAO mysqlPedidoDAO = new MysqlPedidoDAO();
 
 
 	public Datos() {
@@ -38,6 +40,11 @@ public class Datos {
 		Cliente cliente = listaClientes.getAt(indexCliente -1 );
 		Pedido pedido = new Pedido(idPedido, cliente, articulo, cantidad, fechaHoraPedido);
 		listaPedidos.add(pedido);
+		 try {
+			 mysqlPedidoDAO.insertar(pedido);
+		} catch (DaoException e) {
+			throw new RuntimeException(e);
+		}
 		System.out.println("***Pedido correctamente añadido!!***");
 		System.out.println(pedido.toString());
 		System.out.println("-----------------------------------");
