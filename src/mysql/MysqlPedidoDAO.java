@@ -7,6 +7,7 @@ import modelo.Articulo;
 import modelo.Pedido;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MysqlPedidoDAO implements PedidoDAO {
@@ -16,7 +17,7 @@ public class MysqlPedidoDAO implements PedidoDAO {
 
     public MysqlPedidoDAO() {
         try {
-            conn = DriverManager.getConnection(jdbc,"root", "root");
+            conn = DriverManager.getConnection(jdbc,"root", "1234");
             System.out.println("BBDD Correctamente conectada");
 
         } catch (SQLException ex) {
@@ -50,4 +51,34 @@ public class MysqlPedidoDAO implements PedidoDAO {
             }
         }
     }
+
+	@Override
+	public void modificar(Pedido a) throws DaoException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void eliminar(Pedido a) throws DaoException {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	
+
+	@Override
+	public Pedido obtener(Integer id) throws DaoException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Articulo> obtenerTodos() throws DaoException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 }
+

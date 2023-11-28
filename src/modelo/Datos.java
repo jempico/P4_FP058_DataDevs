@@ -7,18 +7,18 @@ import mysql.MysqlPedidoDAO;
 import java.util.ArrayList;
 
 public class Datos {
-	private ListaArticulos listaArticulos;
+	private ArrayList<Articulo> listaArticulos;
 	private ListaClientes listaClientes;
 	private ListaPedidos listaPedidos;
 
 	MysqlArticuloDAO mysqlArticuloDAO = new MysqlArticuloDAO();
 	MysqlPedidoDAO mysqlPedidoDAO = new MysqlPedidoDAO();
 
-
 	public Datos() {
-		listaArticulos = new ListaArticulos();
+		listaArticulos = new ArrayList<>();
 		listaClientes = new ListaClientes();
 		listaPedidos = new ListaPedidos();
+		 mysqlArticuloDAO = new MysqlArticuloDAO();
 	}
 
 	public void addArticulo(Integer codigo, String descripcion, float precio, float gastos, Integer preparacion) {
@@ -35,7 +35,7 @@ public class Datos {
 	}
 
 
-	public void addPedido(Integer idPedido, Integer indexCliente, Integer indexArticulo, Integer cantidad, String fechaHoraPedido) {
+	/*public void addPedido(Integer idPedido, Integer indexCliente, Integer indexArticulo, Integer cantidad, String fechaHoraPedido) {
 		Articulo articulo = listaArticulos.getAt(indexArticulo -1 );
 		Cliente cliente = listaClientes.getAt(indexCliente -1 );
 		Pedido pedido = new Pedido(idPedido, cliente, articulo, cantidad, fechaHoraPedido);
@@ -59,7 +59,7 @@ public class Datos {
 
 
 
-	}
+	}*/
 
 	public ArrayList mostrarPedidos()
 	{
@@ -72,16 +72,15 @@ public class Datos {
 	}
 
 
-	public ArrayList mostrarArticulos() {
-		return listaArticulos.getArrayList();
-		// PARA NOE:
-		// try {
-		//			return mysqlArticuloDAO.obtenerTodos();
-		//		} catch (DaoException e) {
-		//			throw new RuntimeException(e);
-		//		}
-
+	public ArrayList<Articulo> mostrarArticulos() {
+	    try {
+	        return mysqlArticuloDAO.obtenerTodos();
+	    } catch (DaoException e) {
+	        throw new RuntimeException(e);
+	    }
 	}
+
+	
 
 	public void addCliente(String nombre, String domicilio, String email, String nif, String tipoCliente) {
 
@@ -156,4 +155,5 @@ public class Datos {
 		Cliente clienteFound = listaClientes.getAt(indexCliente-1);
 		listaPedidos.mostrarPedidosPendientes(clienteFound);
 	}
+}
 }

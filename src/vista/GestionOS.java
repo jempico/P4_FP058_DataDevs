@@ -1,9 +1,11 @@
 package vista;
 
 import controlador.Controlador;
+import dao.ArticuloDAO;
 import modelo.Articulo;
 import modelo.Cliente;
 import modelo.Pedido;
+import mysql.MysqlArticuloDAO;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -13,14 +15,14 @@ import java.util.Scanner;
 public class GestionOS {
 
 
-    private Controlador controlador;
+	private Controlador controlador;
     Scanner teclado = new Scanner(System.in);
 
     public void inicio() {
         controlador = new Controlador();
         boolean salir = false;
         String opcion;
-        cargarDatosEjemplo();
+        //cargarDatosEjemplo();
 
         do {
 
@@ -57,7 +59,7 @@ public class GestionOS {
                     mostrarClientesPremium();
                     break;
                 case "7":
-                    addPedido();
+                    //addPedido();
                     break;
                 case "8":
                     eliminarPedido();
@@ -77,7 +79,7 @@ public class GestionOS {
 
     }
 
-    public void cargarDatosEjemplo() {
+    /*public void cargarDatosEjemplo() {
         controlador.addArticulo(111, "mesa", 40.5F, 10.5F, 60);
         controlador.addArticulo(222, "silla", 25.5F, 5.5F, 250);
         controlador.addArticulo(333, "armario", 115.5F, 25.5F, 600);
@@ -87,7 +89,7 @@ public class GestionOS {
         controlador.addCliente("Carlos", "C/Verdi 7", "carlos@gmail.com", "17894565R", "Premium");
         controlador.addPedido(56401,1, 1, 2, "2023-11-01 21:15");
         controlador.addPedido(97415,3, 2, 4, "2023-10-28 11:30");
-    }
+    }*/
 
     private void mostrarPedidosEnviados() {
         System.out.println("¿Quieres filtrar por cliente? Sí/No");
@@ -154,7 +156,7 @@ public class GestionOS {
         }
     }
 
-    private void addPedido() throws InputMismatchException {
+    /*private void addPedido() throws InputMismatchException {
         // TODO Auto-generated method stub
         Integer indexCliente = 0;
         int idArticulo = 0;
@@ -191,7 +193,7 @@ public class GestionOS {
             System.out.println("Ha habido algún error en el tipo de dato introducido. Vuelve a intentarlo");
             System.exit(0);
         }
-    }
+    }*/
 
     private void mostrarPedidos() {
         ArrayList<Pedido> lista = controlador.mostrarPedidos();
@@ -259,7 +261,8 @@ public class GestionOS {
         }
 
     }
-
+//Métodos del menú para articulos
+    
     private void mostrarArticulos() {
         ArrayList<Articulo> lista = controlador.mostrarArticulos();
 
