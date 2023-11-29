@@ -23,14 +23,16 @@ public class MysqlClienteDAO implements ClienteDAO {
 
     String jdbc = "jdbc:mysql://localhost:3306/onlinestore";
 
-    public MysqlClienteDAO() {
-        try {
-            conn = DriverManager.getConnection(jdbc,"root", "root");
-            System.out.println("BBDD Correctamente conectada");
+    public MysqlClienteDAO(Connection connection) {
+        conn = connection;
 
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
+        //try {
+        //    conn = DriverManager.getConnection(jdbc,"root", "root");
+        //    System.out.println("BBDD Correctamente conectada");
+//
+  //      } catch (SQLException ex) {
+    //        ex.printStackTrace();
+      //  }
 
 
     }

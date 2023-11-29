@@ -1,10 +1,12 @@
 package modelo;
 
+import controlador.Util;
 import dao.DaoException;
 import mysql.MysqlArticuloDAO;
 import mysql.MysqlClienteDAO;
 import mysql.MysqlPedidoDAO;
 
+import java.sql.Connection;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -15,14 +17,20 @@ public class Datos {
 	private ListaClientes listaClientes;
 	private ListaPedidos listaPedidos;
 
-	MysqlArticuloDAO mysqlArticuloDAO = new MysqlArticuloDAO();
-	MysqlPedidoDAO mysqlPedidoDAO = new MysqlPedidoDAO();
-	MysqlClienteDAO mysqlClienteDAO = new MysqlClienteDAO();
+	MysqlArticuloDAO mysqlArticuloDAO;
+	MysqlPedidoDAO mysqlPedidoDAO;
+	MysqlClienteDAO mysqlClienteDAO;
+
+	Connection connection;
 
 	public Datos() {
 		listaArticulos = new ListaArticulos();
 		listaClientes = new ListaClientes();
 		listaPedidos = new ListaPedidos();
+		connection = Util.conectar();
+		mysqlArticuloDAO = new MysqlArticuloDAO(connection);
+		mysqlPedidoDAO = new MysqlPedidoDAO(connection);
+		mysqlClienteDAO = new MysqlClienteDAO(connection);
 	}
 
 	public void addArticulo(Integer codigo, String descripcion, float precio, float gastos, Integer preparacion) {
@@ -116,26 +124,40 @@ public class Datos {
 
 	}
  	public ArrayList mostrarClientesEstandar() {
+		ArrayList<Cliente> clientes = new ArrayList<>();
+		ArrayList<Cliente> clientesEstandar = new ArrayList<>();
 
-		return listaClientes.getEstandardClients();
-		// PARA ELI:
-		//try {
-		//			return mysqlClienteDAO.obtenerClientesEstandar(); //<<-- este método tendrá que crearse dentro de mysqlClienteDAO filtrando por la columna tipoCliente = "estandar"
-		//		} catch (DaoException e) {
-		//			throw new RuntimeException(e);
-		//		}
+		try {
+			clientes = mysqlClienteDAO.obtenerTodos();
+
+			for (Cliente cliente : clientes) {
+				if (cliente.getTipoCliente() == "estandar") {
+					clientesEstandar.add(cliente);
+				}
+			}
+		} catch (DaoException e) {
+			throw new RuntimeException(e);
+		}
+		return clientesEstandar;
 
 	}
 	public ArrayList mostrarClientesPremium() {
 
-		return listaClientes.getPremiumClients();
+		ArrayList<Cliente> clientes = new ArrayList<>();
+		ArrayList<Cliente> clientesPremium = new ArrayList<>();
 
-		// PARA ELI:
-		//try {
-		//			return mysqlClienteDAO.obtenerClientesPremium(); //<<-- este método tendrá que crearse dentro de mysqlClienteDAO filtrando por la columna tipoCliente = "premium"
-		//		} catch (DaoException e) {
-		//			throw new RuntimeException(e);
-		//		}
+		try {
+			clientes = mysqlClienteDAO.obtenerTodos();
+
+			for (Cliente cliente : clientes) {
+				if (cliente.getTipoCliente() == "premium") {
+					clientesPremium.add(cliente);
+				}
+			}
+		} catch (DaoException e) {
+			throw new RuntimeException(e);
+		}
+		return clientesPremium;
 	}
 
 	public ArrayList<Pedido> mostrarPedidosEnviados() {

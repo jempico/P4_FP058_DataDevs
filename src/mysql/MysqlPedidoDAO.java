@@ -16,9 +16,8 @@ import java.util.List;
 
 public class MysqlPedidoDAO implements PedidoDAO {
     private Connection conn;
-    MysqlArticuloDAO mysqlArticuloDAO = new MysqlArticuloDAO();
-    MysqlClienteDAO mysqlClienteDAO = new MysqlClienteDAO();
-
+    MysqlArticuloDAO mysqlArticuloDAO;
+    MysqlClienteDAO mysqlClienteDAO;
 
     final String INSERT = "INSERT INTO pedidos(id_pedido, cantidad, fecha, id_cliente, id_articulo) VALUES (?, ?, ?, ?, ?)";
     final String UPDATE = "UPDATE pedidos SET id_pedido = ?, cantidad = ?, fecha = ?, id_cliente = ?, id_articulo = ? WHERE id_pedido = ?";
@@ -28,16 +27,10 @@ public class MysqlPedidoDAO implements PedidoDAO {
 
     String jdbc = "jdbc:mysql://localhost:3306/onlinestore";
 
-    public MysqlPedidoDAO() {
-        try {
-            conn = DriverManager.getConnection(jdbc,"root", "root");
-            System.out.println("BBDD Correctamente conectada");
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-
-
+    public MysqlPedidoDAO(Connection connection) {
+        conn = connection;
+        mysqlArticuloDAO = new MysqlArticuloDAO(conn);
+        mysqlClienteDAO = new MysqlClienteDAO(conn);
     }
 
     @Override

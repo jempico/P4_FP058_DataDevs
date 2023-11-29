@@ -1,5 +1,6 @@
 package mysql;
 
+import controlador.Util;
 import dao.ArticuloDAO;
 import dao.DaoException;
 import modelo.Articulo;
@@ -17,16 +18,10 @@ public class MysqlArticuloDAO implements ArticuloDAO {
     final String GETALL = "SELECT id_articulo, descripcion, pvp, gastosenvio, preparacion FROM articulos";
     final String GETONE = "SELECT id_articulo, descripcion, pvp, gastosenvio, preparacion FROM articulos WHERE id_articulo = ?";
 
-    String jdbc = "jdbc:mysql://localhost:3306/onlinestore";
+    Util util = new Util();
 
-    public MysqlArticuloDAO() {
-        try {
-            conn = DriverManager.getConnection(jdbc,"root", "root");
-            System.out.println("BBDD Correctamente conectada");
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
+    public MysqlArticuloDAO(Connection connection) {
+            conn = connection;
     }
 
     @Override
