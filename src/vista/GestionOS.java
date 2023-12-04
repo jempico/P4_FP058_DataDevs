@@ -186,7 +186,7 @@ public class GestionOS {
 
                 System.out.println("Escoge el articulo del pedido.");
                 System.out.println("----------------------------------");
-                controlador.mostrarArticulos();
+                mostrarArticulos();
                 System.out.println("----------------------------------");
                 System.out.println("Ingresa el número de ID del articulo: ");
                 idArticulo = teclado.nextInt();

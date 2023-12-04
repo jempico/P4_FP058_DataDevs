@@ -79,13 +79,11 @@ public class Datos {
 
 
 	public ArrayList mostrarArticulos() {
-		return listaArticulos.getArrayList();
-		// PARA NOE:
-		// try {
-		//			return mysqlArticuloDAO.obtenerTodos();
-		//		} catch (DaoException e) {
-		//			throw new RuntimeException(e);
-		//		}
+		try {
+			return mysqlArticuloDAO.obtenerTodos();
+		} catch (DaoException e) {
+			throw new RuntimeException(e);
+		}
 
 	}
 
