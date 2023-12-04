@@ -22,7 +22,7 @@ public class GestionOS {
         controlador = new Controlador();
         boolean salir = false;
         String opcion;
-        //cargarDatosEjemplo();
+        cargarDatosEjemplo();
 
         do {
 

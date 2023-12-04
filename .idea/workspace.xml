@@ -5,17 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0dc3870c-b58e-4bb8-bef5-6e6846a4035d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/controlador/Util.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/P3_FP058_DataDevs/modelo/Datos.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/P3_FP058_DataDevs/modelo/Datos.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/P3_FP058_DataDevs/mysql/MysqlArticuloDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/P3_FP058_DataDevs/mysql/MysqlArticuloDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/P3_FP058_DataDevs/mysql/MysqlClienteDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/P3_FP058_DataDevs/mysql/MysqlClienteDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/P3_FP058_DataDevs/mysql/MysqlPedidoDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/P3_FP058_DataDevs/mysql/MysqlPedidoDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dao/DaoFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/DaoFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modelo/Datos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modelo/Datos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mysql/MysqlArticuloDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mysql/MysqlArticuloDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mysql/MysqlClienteDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mysql/MysqlClienteDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mysql/MysqlPedidoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mysql/MysqlPedidoDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BD/onlinestorebd.sql" beforeDir="false" afterPath="$PROJECT_DIR$/BD/onlinestorebd.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/P3_FP058_DataDevs/vista/GestionOS.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/P3_FP058_DataDevs/vista/GestionOS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vista/GestionOS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/vista/GestionOS.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
