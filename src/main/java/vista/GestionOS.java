@@ -46,7 +46,6 @@ public class GestionOS {
                 case "1":
                     addArticulo();
                     break;
-
                 case "2":
                     mostrarArticulos();
                     break;
@@ -55,6 +54,12 @@ public class GestionOS {
                     break;
                 case "4":
                     mostrarClientes();
+                    break;
+                case "5":
+                    mostrarClientesEstandar();
+                    break;
+                case "6":
+                    mostrarClientesPremium();
                     break;
                 case "7":
                     addPedido();
@@ -142,6 +147,26 @@ public class GestionOS {
             System.out.println(lista.indexOf(cliente) + 1 + ": " + cliente);
         }
         System.out.println("***********************************************************");
+    }
+
+    private void mostrarClientesEstandar() {
+        List<Cliente> lista = controlador.mostrarClientesEstandar();
+
+        System.out.println("******* LISTADO DE CLIENTES (ESTÁNDAR)  ********");
+        for (Cliente cliente : lista) {
+            System.out.println(cliente);
+        }
+        System.out.println("**************************************************");
+    }
+
+    private void mostrarClientesPremium() {
+        List<Cliente> lista = controlador.mostrarClientesPremium();
+
+        System.out.println("******* LISTADO DE CLIENTES (PREMIUM)  ********");
+        for (Cliente cliente : lista) {
+            System.out.println(cliente);
+        }
+        System.out.println("**************************************************");
     }
 
     private void eliminarPedido() throws InputMismatchException {

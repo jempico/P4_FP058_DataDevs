@@ -82,6 +82,7 @@ public class Cliente {
         return this.tipoCliente;
     }
 
+
     public void setTipoCliente(String tipoCliente) {
         this.tipoCliente = tipoCliente;
     }

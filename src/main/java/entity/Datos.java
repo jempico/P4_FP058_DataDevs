@@ -149,8 +149,7 @@ public class Datos {
         List<Cliente> listaClientes;
         try {
             transaction.begin();
-            // get all the objects from Employee table
-            listaClientes = entityManager.createNamedQuery("getallClientes", Cliente.class).getResultList();
+             listaClientes = entityManager.createNamedQuery("getallClientes", Cliente.class).getResultList();
             transaction.commit();
 
         } catch (Exception e) {
@@ -163,6 +162,53 @@ public class Datos {
 
     }
 
+    public List mostrarClientesEstandar() {
+        List<Cliente> clientes = new ArrayList<>();
+        List<Cliente> clientesEstandar = new ArrayList<>();
+
+        try {
+            transaction.begin();
+            clientes = entityManager.createNamedQuery("getallClientes", Cliente.class).getResultList();
+            transaction.commit();
+
+            for (Cliente cliente : clientes) {
+                System.out.println(cliente.getTipoCliente());
+                System.out.println(cliente.getTipoCliente().equals("estandar"));
+
+                if (cliente.getTipoCliente().equals("estandar")) {
+                    clientesEstandar.add(cliente);
+                }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return clientesEstandar;
+
+    }
+
+    public List mostrarClientesPremium() {
+        List<Cliente> clientes = new ArrayList<>();
+        List<Cliente> clientesPremium = new ArrayList<>();
+
+        try {
+            transaction.begin();
+            clientes = entityManager.createNamedQuery("getallClientes", Cliente.class).getResultList();
+            transaction.commit();
+
+            for (Cliente cliente : clientes) {
+                System.out.println(cliente.getTipoCliente());
+                System.out.println(cliente.getTipoCliente().equals("estandar"));
+
+                if (cliente.getTipoCliente().equals("premium")) {
+                    clientesPremium.add(cliente);
+                }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return clientesPremium;
+
+    }
 
     public List<Pedido> mostrarPedidos(){
         List<Pedido> listaPedidos;
