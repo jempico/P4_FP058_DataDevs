@@ -4,6 +4,9 @@ import controlador.Controlador;
 import entity.Articulo;
 import entity.Cliente;
 import entity.Pedido;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -61,6 +64,9 @@ public class GestionOS {
                     break;
                 case "9":
                     mostrarPedidosPendientes();
+                    break;
+                case "10":
+                    mostrarPedidosEnviados();
                     break;
                 case "11":
                     mostrarPedidos();
@@ -172,12 +178,7 @@ public class GestionOS {
             System.out.println("************** PEDIDOS PENDIENTES **************");
             for (Pedido pedido : lista) {
                 System.out.println(pedido.toString());
-                //System.out.println("-----------------------------------------");
-                //System.out.println("Fecha pedido: " + pedido.getFecha());
-                //System.out.println("Tiempo preparacion (en minutos): " + pedido.getArticulo().getPreparacion());
-                //System.out.println("Fecha actual: " + LocalDateTime.now());
-                //System.out.println("Minutos de diferencia: " + pedido.calcDiferencia(pedido.getFecha(), LocalDateTime.now()));
-
+                System.out.println("-----------------------------------------");
             }
             System.out.println("**************************************************");
         } else {
@@ -185,7 +186,14 @@ public class GestionOS {
             this.mostrarClientes();
             System.out.println("Ingresa el número del cliente: ");
             Integer indexCliente = teclado.nextInt();
-            // controlador.mostrarPedidosPendientes(indexCliente);
+            List<Pedido> lista = controlador.mostrarPedidosPendientes(indexCliente);
+
+            System.out.println("************** PEDIDOS PENDIENTES POR CLIENTE **************");
+            for (Pedido pedido : lista) {
+                System.out.println(pedido.toString());
+                System.out.println("-----------------------------------------");
+            }
+            System.out.println("**************************************************");
 
         }
     }
@@ -221,6 +229,34 @@ public class GestionOS {
         }
     }
 
+    private void mostrarPedidosEnviados() {
+        System.out.println("¿Quieres filtrar por cliente? Sí/No");
+        String bool = teclado.next();
+        if (bool.equalsIgnoreCase("No")) {
+            List<Pedido> lista = controlador.mostrarPedidosEnviados();
+            System.out.println("************** PEDIDOS ENVIADOS **************");
+            for (Pedido pedido : lista) {
+                System.out.println("-----------------------------------------");
+                System.out.println(pedido.toString());
+
+            }
+            System.out.println("**************************************************");
+        } else {
+            System.out.println("***** Escoge un cliente *****");
+            this.mostrarClientes();
+            System.out.println("Ingresa el número del cliente: ");
+            Integer indexCliente = teclado.nextInt();
+            List<Pedido> lista = controlador.mostrarPedidosEnviados(indexCliente);
+
+            System.out.println("************** PEDIDOS ENVIADOS POR CLIENTE **************");
+            for (Pedido pedido : lista) {
+                System.out.println(pedido.toString());
+                System.out.println("-----------------------------------------");
+            }
+            System.out.println("**************************************************");
+
+        }
+    }
 
 
     private String pedirOpcion() {

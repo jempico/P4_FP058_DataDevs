@@ -2,6 +2,9 @@ package entity;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Objects;
 
 @Entity
@@ -45,6 +48,10 @@ public class Pedido {
         return fecha;
     }
 
+    public LocalDateTime getFechaInLocalDateTime() {
+        Date fecha = this.getFecha();
+        return fecha.toLocalDate().atStartOfDay();
+    }
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
@@ -64,6 +71,12 @@ public class Pedido {
     public void setIdCliente(Integer idCliente) {
         this.idCliente = idCliente;
     }
+
+    public long calcDiferencia(LocalDateTime datePedido, LocalDateTime dateNow) {
+        Duration duration = Duration.between(datePedido, dateNow);
+        return Math.abs(duration.toMinutes());
+    }
+
 
     @Override
     public boolean equals(Object o) {

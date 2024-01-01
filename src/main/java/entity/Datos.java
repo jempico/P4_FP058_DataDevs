@@ -69,7 +69,7 @@ public class Datos {
             java.util.Date parsedDate = dateFormat.parse(fechaHoraPedido);
 
             // Convert to java.sql.Date
-            java.sql.Date sqlDate = new java.sql.Date(parsedDate.getTime());
+            Date sqlDate = new Date(parsedDate.getTime());
 
 
             Pedido pedido = new Pedido();
@@ -83,16 +83,6 @@ public class Datos {
 
             // Clear the persistence context to detach entities
             entityManager.clear();
-
-
-            Articulo articuloFound = entityManager.find(Articulo.class, idArticulo);
-
-            if (articuloFound != null) {
-                System.out.println("Articulo found: " + articuloFound);
-
-            } else {
-                System.out.println("Articulo no encontrado con el número: " + idArticulo);
-            }
 
             transaction.commit();
 
@@ -219,23 +209,127 @@ public class Datos {
 
     public List<Pedido> mostrarPedidosPendientes() {
 
-        List<Pedido> pedidosPendientes;
+        List<Pedido> pedidosPendientes = new ArrayList<>();
         List<Pedido> pedidos ;
 
         try {
             transaction.begin();
-            // get all the objects from Employee table
-            pedidosPendientes = entityManager.createNamedQuery("getallPedidos", Pedido.class).getResultList();
+            pedidos = entityManager.createNamedQuery("getallPedidos", Pedido.class).getResultList();
             transaction.commit();
-            for (Pedido pedido : pedidosPendientes) {
-                //if (pedido.getArticulo().getPreparacion() > pedido.calcDiferencia(pedido.getFecha(), LocalDateTime.now())) {
-                //    pedidosPendientes.add(pedido);
-                //}
+
+            for (Pedido pedido : pedidos) {
+
+                Articulo articuloFound = entityManager.find(Articulo.class, pedido.getIdArticulo());
+
+                if (articuloFound != null) {
+                    if(articuloFound.getPreparacion() > pedido.calcDiferencia(pedido.getFechaInLocalDateTime(), LocalDateTime.now()))
+                         pedidosPendientes.add(pedido);
+
+
+                } else {
+                    System.out.println("Articulo no encontrado con el número: " + pedido.getIdArticulo());
+                }
+
             } } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
         return pedidosPendientes;
+    }
+
+    public  List<Pedido> mostrarPedidosPendientes(Integer indexCliente) {
+        List<Pedido> pedidosPendientes = new ArrayList<>();
+        List<Pedido> pedidos ;
+
+        try {
+            transaction.begin();
+            pedidos = entityManager.createQuery("SELECT pedido from Pedido pedido where pedido.idCliente = ?1")
+                    .setParameter(1, indexCliente)
+                    .getResultList();
+            transaction.commit();
+            System.out.println("pedidos: " + pedidos);
+
+
+            for (Pedido pedido : pedidos) {
+
+                Articulo articuloFound = entityManager.find(Articulo.class, pedido.getIdArticulo());
+
+                if (articuloFound != null) {
+                    if(articuloFound.getPreparacion() > pedido.calcDiferencia(pedido.getFechaInLocalDateTime(), LocalDateTime.now()))
+                        pedidosPendientes.add(pedido);
+
+
+                } else {
+                    System.out.println("Articulo no encontrado con el número: " + pedido.getIdArticulo());
+                }
+
+            } } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return pedidosPendientes;
+    }
+
+    public List<Pedido> mostrarPedidosEnviados() {
+        List<Pedido> pedidosEnviados = new ArrayList<>();
+        List<Pedido> pedidos;
+
+        try {
+            transaction.begin();
+            pedidos = entityManager.createNamedQuery("getallPedidos", Pedido.class).getResultList();
+            transaction.commit();
+
+             for (Pedido pedido : pedidos) {
+
+                 Articulo articuloFound = entityManager.find(Articulo.class, pedido.getIdArticulo());
+
+                 if (articuloFound != null) {
+                     if(articuloFound.getPreparacion() < pedido.calcDiferencia(pedido.getFechaInLocalDateTime(), LocalDateTime.now()))
+                         pedidosEnviados.add(pedido);
+
+
+                 } else {
+                     System.out.println("Articulo no encontrado con el número: " + pedido.getIdArticulo());
+                 }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return pedidosEnviados;
+    }
+
+    public List<Pedido> mostrarPedidosEnviados(Integer indexCliente) {
+        List<Pedido> pedidosEnviados = new ArrayList<>();
+        List<Pedido> pedidos;
+
+        try {
+            transaction.begin();
+            pedidos = entityManager.createQuery("SELECT pedido from Pedido pedido where pedido.idCliente = ?1")
+                    .setParameter(1, indexCliente)
+                    .getResultList();
+            transaction.commit();
+            System.out.println("pedidos: " + pedidos);
+
+
+            for (Pedido pedido : pedidos) {
+
+                Articulo articuloFound = entityManager.find(Articulo.class, pedido.getIdArticulo());
+
+                if (articuloFound != null) {
+                    if(articuloFound.getPreparacion() < pedido.calcDiferencia(pedido.getFechaInLocalDateTime(), LocalDateTime.now()))
+                        pedidosEnviados.add(pedido);
+
+
+                } else {
+                    System.out.println("Articulo no encontrado con el número: " + pedido.getIdArticulo());
+                }
+
+            } } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return pedidosEnviados;
     }
 
     public void close() {

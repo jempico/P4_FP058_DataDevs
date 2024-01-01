@@ -34,6 +34,17 @@ public class Controlador {
 
     public List<Pedido> mostrarPedidosPendientes() { return datos.mostrarPedidosPendientes(); }
 
+    public List<Pedido> mostrarPedidosPendientes(Integer indexCliente) {
+        return datos.mostrarPedidosPendientes(indexCliente);
+    }
+
+    public List<Pedido> mostrarPedidosEnviados() { return datos.mostrarPedidosEnviados();}
+
+    public List<Pedido> mostrarPedidosEnviados(Integer indexCliente) {
+        return datos.mostrarPedidosEnviados(indexCliente);
+    }
+
+
     public void eliminarPedido(int numeroPedido)
     {
         datos.eliminarPedido(numeroPedido);
