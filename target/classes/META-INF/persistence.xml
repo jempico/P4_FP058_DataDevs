@@ -9,7 +9,7 @@
             <!-- Hibernate-specific properties -->
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
-            <property name="hibernate.show_sql" value="false"/>
+            <property name="hibernate.show_sql" value="true"/>
             <!-- JDBC connection properties -->
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/onlinestore"/>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>

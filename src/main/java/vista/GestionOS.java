@@ -88,8 +88,6 @@ public class GestionOS {
 
     private void addArticulo() throws InputMismatchException {
         try {
-            System.out.println("Código del artículo: ");
-            Integer codigo = teclado.nextInt();
             System.out.println("Descripción: ");
             String descripcion = teclado.next();
             System.out.println("Precio: ");
@@ -98,7 +96,7 @@ public class GestionOS {
             Double gastos = teclado.nextDouble();
             System.out.println("Preparación: ");
             Integer preparacion = teclado.nextInt();
-            controlador.addArticulo(codigo, descripcion, precio, gastos, preparacion);
+            controlador.addArticulo(descripcion, precio, gastos, preparacion);
         } catch (InputMismatchException e) {
             System.out.println("Ha habido algún error en el tipo de dato introducido. Vuelve a intentarlo");
             System.exit(0);
@@ -129,7 +127,9 @@ public class GestionOS {
             System.out.println("NIF del cliente: ");
             String nif = teclado.next();
 
-            System.out.println("Tipo de cliente (Estándar/Premium): ");
+            System.out.println("Tipo de cliente (ingresa el número): ");
+            System.out.println("1: Premium ");
+            System.out.println("2: Estandar ");
             Integer tipoCliente = teclado.nextInt();
 
             controlador.addCliente(nombre, domicilio, email, nif, tipoCliente);
@@ -216,8 +216,7 @@ public class GestionOS {
             System.out.println("************** PEDIDOS PENDIENTES POR CLIENTE **************");
             for (Pedido pedido : lista) {
                 System.out.println(pedido.toString());
-                System.out.println("-----------------------------------------");
-            }
+             }
             System.out.println("**************************************************");
 
         }
@@ -246,7 +245,7 @@ public class GestionOS {
                 System.out.println("Ingresa el número de unidades del artículo: ");
                 unidades = teclado.nextInt();
 
-            controlador.addPedido(idCliente, idArticulo, unidades,  "2023-11-29 00:00");
+            controlador.addPedido(idCliente, idArticulo, unidades,  "2024-01-02 23:30");
 
         } catch (InputMismatchException e) {
             System.out.println("Ha habido algún error en el tipo de dato introducido. Vuelve a intentarlo");

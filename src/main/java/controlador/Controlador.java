@@ -12,9 +12,9 @@ public class Controlador {
         datos = new Datos();
     }
 
-    public void addArticulo(Integer codigo, String descripcion, Double precio, Double gastos, Integer preparacion)
+    public void addArticulo(String descripcion, Double precio, Double gastos, Integer preparacion)
     {
-        datos.addArticulo(codigo, descripcion, precio, gastos, preparacion);
+        datos.addArticulo(descripcion, precio, gastos, preparacion);
     }
 
     public void addPedido(Integer idCliente, Integer idArticulo, Integer cantidad, String fechaHoraPedido)  {

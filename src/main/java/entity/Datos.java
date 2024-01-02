@@ -30,11 +30,10 @@ public class Datos {
 
     }
 
-    public void addArticulo(Integer codigo, String descripcion, Double precio, Double gastos, Integer preparacion) {
+    public void addArticulo(String descripcion, Double precio, Double gastos, Integer preparacion) {
         try {
             transaction.begin();
             Articulo articulo = new Articulo();
-            articulo.setid_articulo(codigo);
             articulo.setDescripcion( descripcion);
             articulo.setPvp(precio);
             articulo.setGastosenvio(gastos);
@@ -111,7 +110,7 @@ public class Datos {
                 cliente.setTipoCliente("premium");
                 cliente.setTipo(1);
             } else {
-                cliente.setTipoCliente("estándar");
+                cliente.setTipoCliente("estandar");
                 cliente.setTipo(2);
             }
             cliente.setNombre(nombre);
@@ -172,10 +171,7 @@ public class Datos {
             transaction.commit();
 
             for (Cliente cliente : clientes) {
-                System.out.println(cliente.getTipoCliente());
-                System.out.println(cliente.getTipoCliente().equals("estandar"));
-
-                if (cliente.getTipoCliente().equals("estandar")) {
+                if (cliente.getTipo() == 2) {
                     clientesEstandar.add(cliente);
                 }
             }
@@ -196,10 +192,7 @@ public class Datos {
             transaction.commit();
 
             for (Cliente cliente : clientes) {
-                System.out.println(cliente.getTipoCliente());
-                System.out.println(cliente.getTipoCliente().equals("estandar"));
-
-                if (cliente.getTipoCliente().equals("premium")) {
+                if (cliente.getTipo() == 1) {
                     clientesPremium.add(cliente);
                 }
             }
@@ -293,7 +286,6 @@ public class Datos {
                     .setParameter(1, indexCliente)
                     .getResultList();
             transaction.commit();
-            System.out.println("pedidos: " + pedidos);
 
 
             for (Pedido pedido : pedidos) {
@@ -355,7 +347,6 @@ public class Datos {
                     .setParameter(1, indexCliente)
                     .getResultList();
             transaction.commit();
-            System.out.println("pedidos: " + pedidos);
 
 
             for (Pedido pedido : pedidos) {
